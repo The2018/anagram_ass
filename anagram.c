@@ -3,8 +3,8 @@
 #include <ctype.h>
 #include "dictionary.h"
 
-void print_anagram(VNode** head){
-	VNode* current = *head;
+void print_anagram(VNode* head){
+	VNode* current = head;
 	while(current !=NULL){
 		printf("%s ", current->value);
 		current = current->next;
@@ -36,21 +36,19 @@ int main (int argc, char ** argv) {
 	int count = 0;
 	for (int i = 0; i < DEFAULT_HASH_SIZE; i++){
 		if (dictionary[i] != NULL){
-			DNode *np = dictionary[i]; 
-			DNode *current = np;
-			while (current != NULL) {
-				DNode * temp = current;
-				current = current->next;
-                if (temp->key !=NULL){
-                    if ((temp->values)->next != NULL){
-                    	count ++;
-                    	print_anagram(&(temp->values));
-                    	puts("\n");
-                    }
+			DNode *current = dictionary[i];
+			while (current != NULL){
+				if ((current -> values) -> next != NULL){
+					print_anagram(current -> values);
+					printf("\n");
+					count ++;
 				}
+				current = current -> next; 
+				}
+				
 			}
 		}
-	}
+	
 	printf("The total number of anagram is %d\n", count);
 	free_dictionary(dictionary, DEFAULT_HASH_SIZE);
 
